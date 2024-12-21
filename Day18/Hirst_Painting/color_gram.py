@@ -22,8 +22,7 @@ hist_color=[(245, 243, 238), (246, 242, 244), (202, 164, 110),
             (82, 148, 129), (147, 17, 19), (27, 68, 102),
             (12, 70, 64), (107, 127, 153), (176, 192, 208),
             (168, 99, 102)]
-
-hello
+hello=0
 normalized_colors = [(r / 255, g / 255, b / 255) for r, g, b in hist_color]
 # 10 rows 10 col spots
 # Dot size 20 and space is 50
