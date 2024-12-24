@@ -18,6 +18,12 @@ class Snake:
             t.goto(turtle)
             self.segments.append(t)
 
+    def snake_long(self):
+        t = Turtle('square')
+        t.color('white')
+        t.penup()
+        self.segments.append(t)
+
     def up(self):
         if self.head.heading() != 270:
             self.head.setheading(90)
