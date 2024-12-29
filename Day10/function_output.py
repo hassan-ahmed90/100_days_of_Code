@@ -13,4 +13,4 @@ def func01(text):
 def func02(text):
     return text.title()
 
-# print(func02(func01("shani")))
+# print(func02(func01("shani.txt")))
