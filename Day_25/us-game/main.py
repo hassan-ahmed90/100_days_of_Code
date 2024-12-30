@@ -16,9 +16,15 @@ y_list=df['y'].tolist()
 state_name=df['state'].tolist()
 size_of_data=df.shape[0]
 print(size_of_data)
-count=1
-while size_of_data+1>count:
-    answer_state=screen.textinput(f"Guess the State ({count}/50)",prompt="Enter the another state name")
+count=[]
+while size_of_data+1>len(count):
+    answer_state=screen.textinput(f"Guess the State ({len(count)}/50)",prompt="Enter the another state name").title()
+    if answer_state=='Exit':
+        with open('entered_states.csv',mode='w') as entered_csv:
+            for state in state_name:
+                if state not in count:
+                    entered_csv.write(state+"\n")
+        break
     if answer_state in state_name:
         answer_row=df.loc[df['state']==answer_state]
         print(answer_row)
@@ -30,7 +36,6 @@ while size_of_data+1>count:
         t1.penup()
         t1.goto(float(x_cor),float(y_cor))
         t1.write(answer_state,align='center',font=("Arial",10,"normal"))
-        count+=1
+        count.append(answer_state)
 
 
-screen.mainloop()
