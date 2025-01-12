@@ -1,12 +1,67 @@
+import random
+from tkinter import *
+from tkinter import messagebox
+import pyperclip
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+#Password Generator Project
+def password_generator():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    nr_letters = random.randint(8, 10)
+    nr_symbols = random.randint(2, 4)
+    nr_numbers = random.randint(2, 4)
+
+    password_list = []
+    #
+    # for char in range(nr_letters):
+    #   password_list.append(random.choice(letters))
+    password_list+=[random.choice(letters) for char in range(random.randint(8, 10))]
+
+    # for char in range(nr_symbols):
+    #   password_list += random.choice(symbols)
+
+    password_list+=[random.choice(symbols) for sym in range(random.randint(2, 4))]
+
+    # for char in range(nr_numbers):
+    #   password_list += random.choice(numbers)
+    password_list+=[random.choice(letters) for num in range(random.randint(2, 4))]
+
+    random.shuffle(password_list)
+
+    password="".join(password_list)
+
+    # password = ""
+    # for char in password_list:
+    #   password += char
+
+    print(f"Your password is: {password}")
+    password_entry.insert(END,password)
+    pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_password():
-    print()
-# ---------------------------- UI SETUP ------------------------------- #
+    name=website_entry.get()
+    email=email_entry.get()
+    password=password_entry.get()
 
-from tkinter import *
+    if len(name) ==0 or len(password) ==0:
+        messagebox.showinfo(title="Warning",message="Please dont leave field empty")
+    else:
+        is_ok=messagebox.askokcancel(title=name,message=f"Email: {email}\n Password: {password}\n Is it ok to save ?")
+        if is_ok:
+            with open('passwords.txt',mode='a') as pass_data:
+                pass_data.write("\n"+name+" | "+email+" | "+password)
+
+            website_entry.delete(0,END)
+            password_entry.delete(0,END)
+
+
+
+# ---------------------------- UI SETUP ------------------------------- #
 
 window =Tk()
 window.title("Password Manager")
@@ -37,8 +92,10 @@ password_entry=Entry(width=18)
 password_entry.grid(row=3,column=1)
 
 #Button
-generate_button=Button(width=14,text="Generate Password")
+generate_button=Button(width=14,text="Generate Password",command=password_generator)
 generate_button.grid(row=3,column=2)
 add_button=Button(text="Add",width=36,command=save_password)
 add_button.grid(row=4,column=1,columnspan=2)
+
+
 window.mainloop()
