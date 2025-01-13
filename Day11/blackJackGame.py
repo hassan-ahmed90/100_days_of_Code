@@ -1,5 +1,5 @@
 import random
-import art
+
 
 def deal_card():
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
@@ -31,7 +31,7 @@ def compare_score(u_score,c_score):
         print("You Lose")
 
 def play():
-    print(art.logo)
+    # print(art.logo)
     user_card=[]
     comp_card=[]
     user_score=-1
